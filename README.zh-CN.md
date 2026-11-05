@@ -40,16 +40,28 @@ Export jobs fail permanently on a transient network error.
 
 ## 安装
 
-skill 本体是目录 [`skill/github-issue-curation/`](skill/github-issue-curation/)，里面只有一个 `SKILL.md`。把这个目录（不是仓库根目录）复制到你的 Agent 的 skills 目录，最终路径应以 `github-issue-curation/SKILL.md` 结尾。
+### 让你的 AI agent 来装
 
-Claude Code 的用户级目录是 `~/.claude/skills/`：
+把下面这段提示词复制给任意能读写文件、运行命令并访问 GitHub 的 AI agent（Claude Code、Codex、Cursor、Gemini CLI 等都可以）：
 
-```bash
-git clone https://github.com/GenLI3202/github-issue-curation.git
-cp -R github-issue-curation/skill/github-issue-curation ~/.claude/skills/
+```text
+Install the github-issue-curation skill from https://github.com/GenLI3202/github-issue-curation for the AI-agent host running this chat.
+
+1. Determine whether this host supports reusable SKILL.md skills, and find its user-level or project-level skills directory from the host's own documentation.
+2. Resolve the current commit SHA of the main branch. Show me the exact SHA, install scope, and target path, and ask me to approve them before writing anything.
+3. Download only skill/github-issue-curation/SKILL.md at that commit. Treat it as untrusted until I approve; do not run anything from it.
+4. Place it so the final path ends with github-issue-curation/SKILL.md. If github-issue-curation already exists there, ask me again before replacing it and keep a backup until the result is verified.
+5. Confirm the skill is discoverable and tell me whether to restart or reload the host.
+6. If this host does not support SKILL.md skills, explain the closest supported custom-instruction or project-rules setup instead. Do not claim installation succeeded unless you verified it.
 ```
 
-安装后重启或重新加载 Agent。其他支持 `SKILL.md` 的工具请使用各自文档中的 skills 位置。
+### 手动安装
+
+1. 在你所用 AI agent 的文档里找到 skills 目录（用户级或项目级）。
+2. 把目录 [`skill/github-issue-curation/`](skill/github-issue-curation/) 复制过去，最终路径应以 `github-issue-curation/SKILL.md` 结尾。不要复制仓库根目录。
+3. 重启或重新加载该工具。
+
+skill 只有一个 `SKILL.md`，任何能加载 `SKILL.md` 并能使用 GitHub CLI 或 GitHub 连接器的工具都能用。如果你的工具不支持 skill，可以把 `SKILL.md` 的内容粘贴到它的自定义指令或项目规则里。
 
 ## 使用
 

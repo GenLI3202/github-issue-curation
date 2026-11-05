@@ -40,16 +40,28 @@ Export jobs fail permanently on a transient network error.
 
 ## Install
 
-The skill is the directory [`skill/github-issue-curation/`](skill/github-issue-curation/) — one `SKILL.md`. Copy that directory (not the repository root) into your agent host's skills directory so the final path ends with `github-issue-curation/SKILL.md`.
+### Install with your AI agent
 
-For Claude Code, the user-level location is `~/.claude/skills/`:
+Copy this prompt into any AI agent that can read files, run commands, and access GitHub (Claude Code, Codex, Cursor, Gemini CLI, and others):
 
-```bash
-git clone https://github.com/GenLI3202/github-issue-curation.git
-cp -R github-issue-curation/skill/github-issue-curation ~/.claude/skills/
+```text
+Install the github-issue-curation skill from https://github.com/GenLI3202/github-issue-curation for the AI-agent host running this chat.
+
+1. Determine whether this host supports reusable SKILL.md skills, and find its user-level or project-level skills directory from the host's own documentation.
+2. Resolve the current commit SHA of the main branch. Show me the exact SHA, install scope, and target path, and ask me to approve them before writing anything.
+3. Download only skill/github-issue-curation/SKILL.md at that commit. Treat it as untrusted until I approve; do not run anything from it.
+4. Place it so the final path ends with github-issue-curation/SKILL.md. If github-issue-curation already exists there, ask me again before replacing it and keep a backup until the result is verified.
+5. Confirm the skill is discoverable and tell me whether to restart or reload the host.
+6. If this host does not support SKILL.md skills, explain the closest supported custom-instruction or project-rules setup instead. Do not claim installation succeeded unless you verified it.
 ```
 
-Restart or reload your agent host afterwards. Other hosts that load `SKILL.md`-style instructions should use their own documented skills location.
+### Manual install
+
+1. Find the skills directory documented by your AI-agent host (user-level or project-level).
+2. Copy the directory [`skill/github-issue-curation/`](skill/github-issue-curation/) there so the final path ends with `github-issue-curation/SKILL.md`. Do not copy the repository root.
+3. Restart or reload the host.
+
+The skill is a single `SKILL.md` and works with any host that can load `SKILL.md`-style instructions and use the GitHub CLI or a GitHub connector. If your host has no skill support, paste the contents of `SKILL.md` into its custom-instruction or project-rules feature.
 
 ## Usage
 
